@@ -3,7 +3,7 @@ requires = ["setuptools>=80", "setuptools-scm>=9"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "distributed"
+name = "dvt-distributed"
 description = "Distributed scheduler for Dask"
 maintainers = [{ name = "Matthew Rocklin", email = "mrocklin@gmail.com" }]
 license = "BSD-3-Clause"
