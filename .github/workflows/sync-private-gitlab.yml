@@ -19,7 +19,7 @@ jobs:
     runs-on: [self-hosted, dvt-mirror]
     steps:
       - name: Checkout bridge helpers
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Configure GitLab mirror SSH identity
         shell: bash
