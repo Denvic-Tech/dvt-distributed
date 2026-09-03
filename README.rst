@@ -1,6 +1,13 @@
 Distributed
 ===========
 
+DVT Fork
+--------
+
+This repository is the Denvic-maintained DVT fork of upstream `Distributed <https://github.com/dask/distributed>`__.
+It is published as ``dvt-distributed`` and is paired with the ``dvt-dask`` fork used by DVT.
+Upstream Distributed history is intentionally preserved so changes can continue to be synchronized with the original project.
+
 |Test Status| |Longitudinal Report (full)| |Longitudinal Report (short)| |Coverage| |Doc Status| |Discourse| |Version Status| |NumFOCUS|
 
 A library for distributed computation.  See documentation_ for more details.

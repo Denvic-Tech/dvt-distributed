@@ -47,7 +47,8 @@ dynamic = ["version"]
 
 [project.urls]
 Homepage = "https://distributed.dask.org"
-Source = "https://git.denvic.ru/extractor/libs/dvt-distributed"
+Source = "https://github.com/Denvic-Tech/dvt-distributed"
+Upstream = "https://github.com/dask/distributed"
 
 [project.entry-points.dask_cli]
 scheduler = "distributed.cli.dask_scheduler:main"
@@ -120,15 +121,6 @@ section-order = [
 [tool.setuptools_scm]
 version_file = "distributed/_version.py"
 version_scheme = "post-release"
-
-[tool.uv.sources]
-dvt-dask = { index = "extractor-libs" }
-
-[[tool.uv.index]]
-name = "extractor-libs"
-url = "https://git.denvic.ru/api/v4/groups/extractor%2Flibs/-/packages/pypi/simple"
-explicit = true
-authenticate = "always"
 
 [tool.pytest.ini_options]
 addopts = '''

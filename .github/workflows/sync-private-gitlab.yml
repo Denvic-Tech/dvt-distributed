@@ -1,0 +1,46 @@
+name: Sync private GitLab mirror
+
+on:
+  push:
+    branches: ['**']
+    tags: ['**']
+  delete:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gitlab-mirror-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout bridge helpers
+        uses: actions/checkout@v4
+
+      - name: Configure GitLab mirror SSH identity
+        shell: bash
+        env:
+          GITLAB_MIRROR_SSH_KEY: ${{ secrets.GITLAB_MIRROR_SSH_KEY }}
+          GITLAB_KNOWN_HOSTS: ${{ secrets.GITLAB_KNOWN_HOSTS }}
+        run: |
+          set -Eeuo pipefail
+          install -d -m 0700 ~/.ssh
+          printf '%s\n' "${GITLAB_MIRROR_SSH_KEY}" > ~/.ssh/id_ed25519
+          chmod 0600 ~/.ssh/id_ed25519
+          printf '%s\n' "${GITLAB_KNOWN_HOSTS}" > ~/.ssh/known_hosts
+          chmod 0644 ~/.ssh/known_hosts
+
+      - name: Synchronize heads and tags
+        shell: bash
+        env:
+          GITLAB_MIRROR_SSH_URL: ${{ vars.GITLAB_MIRROR_SSH_URL }}
+        run: |
+          set -Eeuo pipefail
+          : "${GITLAB_MIRROR_SSH_URL:?Configure repository variable GITLAB_MIRROR_SSH_URL}"
+          python3 scripts/github/sync_git_mirror.py \
+            "https://github.com/${GITHUB_REPOSITORY}.git" \
+            "${GITLAB_MIRROR_SSH_URL}"
