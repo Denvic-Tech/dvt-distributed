@@ -57,6 +57,7 @@ jobs:
   publish:
     needs: build
     runs-on: [self-hosted, dvt-mirror]
+    environment: pypi
     permissions:
       id-token: write
     steps:
